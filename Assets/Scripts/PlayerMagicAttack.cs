@@ -1,19 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class PlayerMagicAttack : MonoBehaviour
 {
     private List<GameObject> enemiesInRange = new List<GameObject>();
     public float radius;
+    public float ticksPerSecond;
+    public int dmgPerTick;
+    private float nextAttackTime;
 
-    void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        RangeAttack();
+        CalculateNextAttackTime();
+    }
+
+    private void Update()
+    {
+        if (Time.time >= nextAttackTime)
         {
             RangeAttack();
-            Debug.Log("Attack performed with radius: " + radius);
+            CalculateNextAttackTime();
         }
+    }
+
+    private void CalculateNextAttackTime()
+    {
+        nextAttackTime = Time.time + (1f / ticksPerSecond);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -40,14 +55,16 @@ public class PlayerMagicAttack : MonoBehaviour
         {
             if (hit.CompareTag("Enemy"))
             {
-                hit.GetComponent<EnemyHealth>().TakeDamage(10);
+                hit.GetComponent<EnemyHealth>().TakeDamage(dmgPerTick);
             }
         }
+
+        Debug.Log("Attack performed with radius: " + radius + ". Attack performed at: " + Time.time);
     }
 
-    void OnDrawGizmos()
+    /*void OnDrawGizmos()
     {
         Gizmos.color = new Color(1, 0, 0, 0.3f);
         Gizmos.DrawSphere(transform.position, radius);
-    }
+    }*/
 }

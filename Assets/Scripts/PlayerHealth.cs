@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class EnemyHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     public int health;
     public TextMeshProUGUI healthText;
@@ -11,10 +11,10 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        healthText.text = "Enemy Health: " + health.ToString();
+        healthText.text = "Player Health: " + health.ToString();
         if (health <= 0)
         {
-            Destroy(gameObject); // Уничтожаем врага при нулевом здоровье
+            Destroy(gameObject);
         }
     }
 }

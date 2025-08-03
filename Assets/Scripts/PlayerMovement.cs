@@ -9,14 +9,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 velocity;
     private Vector2 inputMovement;
 
-    // Start is called before the first frame update
     void Start()
     {
         velocity = new Vector2(speed, speed);
         characterBody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         inputMovement = new Vector2(

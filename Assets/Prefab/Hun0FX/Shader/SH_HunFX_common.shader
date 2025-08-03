@@ -300,7 +300,6 @@ Shader "HunFX/SH_HunFX_common"
 			}
 		}	
 	}
-	CustomEditor "ASEMaterialInspector"
 	
 	Fallback Off
 }
